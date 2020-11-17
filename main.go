@@ -107,6 +107,7 @@ func (hist *history) translateSentence(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// listHistory returns sorted log of past translations.
 func (hist *history) listHistory(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		http.Error(w, fmt.Sprintf("Method %s not supported", r.Method), http.StatusBadRequest)
@@ -143,6 +144,7 @@ func main() {
 	help := flag.Bool("h", false, "show this help screen")
 	flag.Parse()
 
+	// Help info if no port provided.
 	if *help || len(arguments) == 0 {
 		fmt.Printf("Use this tool to start the server that translates English into Gopherish.\n")
 		fmt.Printf("Refer to https://github.com/batyanko/gopherish for instructions on using the server.\n\n")
@@ -152,11 +154,13 @@ func main() {
 		return
 	}
 
+	//
 	if len(arguments) > 1 {
 		fmt.Printf("Too many arguments.\n")
 		return
 	}
 
+	// Port number is the only accepted argument.
 	port := arguments[0]
 	// Test if provided arg is valid port number in the range of an unsigned uint16
 	_, err := strconv.ParseUint(port, 10, 16)
@@ -165,6 +169,7 @@ func main() {
 		return
 	}
 
+	// hist is a history object that holds information on past translations.
 	hist := history{History: []map[string]string{}}
 
 	http.HandleFunc("/word", hist.translateWord)

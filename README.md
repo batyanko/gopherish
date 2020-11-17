@@ -1,4 +1,4 @@
-#Gopherish
+# Gopherish
 
 A translator app + REST API server to translate English into Gopherish.
 
@@ -6,20 +6,30 @@ A translator app + REST API server to translate English into Gopherish.
 
 Either clone this git repo or install using `go get`:
 ```
-go get -u github.com/batyanko/gopherish
+$ go get -u github.com/batyanko/gopherish
 ```
 
 Then change into the main project directory and build using `go build`.
 
 Run the tool by supplying a listen port of your choice:
 ```
-./gopherish 10000
+$ ./gopherish 10000
 ```
+
+### Setup
+
+`Makefile` targets are available for testing and linting the project.
+
+The make tool will be needed for that. Also be sure to have your `go/bin` directory in your PATH.
+
+```
+$ make help
+``` 
 
 ### REST Endpoints
 ##### Translate words via the `/word` POST endpoint:
 ```
-curl -d '{"english-word":"pogo"}' -H 'Content-Type: application/json' http://localhost:10000/word
+$ curl -d '{"english-word":"pogo"}' -H 'Content-Type: application/json' http://localhost:10000/word
 ```
 
 ```json
@@ -28,7 +38,7 @@ curl -d '{"english-word":"pogo"}' -H 'Content-Type: application/json' http://loc
 
 ##### Translate sentences via the `/sentence` POST endpoint.
 ```
-curl -d '{"english-sentence":"Who ate pogo?"}' -H 'Content-Type: application/json' http://localhost:10000/sentence
+$ curl -d '{"english-sentence":"Who ate pogo?"}' -H 'Content-Type: application/json' http://localhost:10000/sentence
 ```
 
 ```json
@@ -37,7 +47,7 @@ curl -d '{"english-sentence":"Who ate pogo?"}' -H 'Content-Type: application/jso
 
 ##### Display history of past translations via the `history` GET endoint.
 ```
-curl http://localhost:10000/history
+$ curl http://localhost:10000/history
 ```
 
 ```json

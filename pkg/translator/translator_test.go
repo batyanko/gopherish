@@ -101,7 +101,7 @@ func TestSentences(t *testing.T) {
 	assert.Equal(t, "Gi gate ethogo opcornpogo.", translation)
 
 	// Test a sentence that doesn't end with a supported punctuation symbol.
-	translation, err = TranslateSentence("I ate the popcorn")
+	_, err = TranslateSentence("I ate the popcorn")
 	assert.NotNil(t, err)
 
 	// Test a sentence with a lot of punctuation.
