@@ -2,10 +2,13 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"sort"
+	"strconv"
 	"strings"
 
 	"github.com/batyanko/gopherish/pkg/translator"
@@ -136,10 +139,36 @@ func (hist *history) listHistory(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	arguments := os.Args[1:]
+	help := flag.Bool("h", false, "show this help screen")
+	flag.Parse()
+
+	if *help || len(arguments) == 0 {
+		fmt.Printf("Use this tool to start the server that translates English into Gopherish.\n")
+		fmt.Printf("Refer to https://github.com/batyanko/gopherish for instructions on using the server.\n\n")
+		fmt.Printf("Arguments:\n")
+		fmt.Printf("The only accepted argument is port number for the HTTP server.\n")
+
+		return
+	}
+
+	if len(arguments) > 1 {
+		fmt.Printf("Too many arguments.\n")
+		return
+	}
+
+	port := arguments[0]
+	// Test if provided arg is valid port number in the range of an unsigned uint16
+	_, err := strconv.ParseUint(port, 10, 16)
+	if err != nil {
+		fmt.Printf("Cannot use %s as listen port.\n", port)
+		return
+	}
+
 	hist := history{History: []map[string]string{}}
 
 	http.HandleFunc("/word", hist.translateWord)
 	http.HandleFunc("/sentence", hist.translateSentence)
 	http.HandleFunc("/history", hist.listHistory)
-	log.Fatal(http.ListenAndServe(":10000", nil))
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
