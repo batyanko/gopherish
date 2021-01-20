@@ -2,6 +2,14 @@
 
 A translator app + REST API server to translate English into Gopherish.
 
+As per the definitive grammar guide on English to Gopherish translation:
+1. If a word starts with a vowel letter, add prefix “g” to the word (ex. apple => gapple)
+2. If a word starts with the consonant letters “xr”, add the prefix “ge” to the begging of the word.
+Such words as “xray” actually sound in the beginning with vowel sound as you pronounce them so a true gopher would say “gexray”.
+3. If a word starts with a consonant sound, move it to the end of the word and then add “ogo” suffix to the word.
+Consonant sounds can be made up of multiple consonants, a.k.a. a consonant cluster (e.g. "chair" -> "airchogo”).
+4. If a word starts with a consonant sound followed by "qu", move it to the end of the word, and then add "ogo" suffix to the word (e.g. "square" -> "aresquogo").
+*/
 ### Installation
 
 Either clone this git repo or install using `go get`:
